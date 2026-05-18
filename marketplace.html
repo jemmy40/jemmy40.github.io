@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Marketplace | DexPi NFT</title>
+
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#ffffff;
+color:#111;
+overflow-x:hidden;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:white;
+border-bottom:1px solid #eee;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-size:32px;
+font-weight:700;
+color:#6f3cff;
+}
+
+.logo span{
+color:#4da6ff;
+}
+
+.nav-links{
+display:flex;
+gap:25px;
+align-items:center;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#111;
+font-weight:500;
+transition:0.2s;
+}
+
+.nav-links a:hover{
+color:#6f3cff;
+}
+
+.login-btn{
+background:#6f3cff;
+color:white;
+border:none;
+padding:12px 24px;
+border-radius:16px;
+cursor:pointer;
+font-size:15px;
+transition:0.2s;
+box-shadow:0 10px 20px rgba(111,60,255,0.15);
+}
+
+.login-btn:hover{
+transform:translateY(-3px);
+}
+
+/* ================= HEADER ================= */
+
+.header{
+padding:70px 20px 40px;
+text-align:center;
+}
+
+.header h1{
+font-size:60px;
+margin-bottom:20px;
+}
+
+.header h1 span{
+color:#6f3cff;
+}
+
+.header p{
+max-width:700px;
+margin:auto;
+color:#666;
+font-size:18px;
+line-height:1.8;
+}
+
+/* ================= FILTERS ================= */
+
+.filters{
+max-width:1300px;
+margin:30px auto;
+padding:0 20px;
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.search-box{
+padding:15px;
+border:1px solid #ddd;
+border-radius:16px;
+width:300px;
+font-size:15px;
+outline:none;
+}
+
+.filter-select{
+padding:15px;
+border:1px solid #ddd;
+border-radius:16px;
+font-size:15px;
+outline:none;
+background:white;
+cursor:pointer;
+}
+
+/* ================= NFT GRID ================= */
+
+.nft-grid{
+max-width:1300px;
+margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+}
+
+/* ================= NFT CARD ================= */
+
+.nft-card{
+background:#f8f8ff;
+padding:18px;
+border-radius:28px;
+border:1px solid #eee;
+transition:0.25s;
+box-shadow:0 10px 25px rgba(0,0,0,0.04);
+}
+
+.nft-card:hover{
+transform:translateY(-7px);
+box-shadow:0 20px 40px rgba(111,60,255,0.15);
+}
+
+.nft-image{
+width:100%;
+height:280px;
+object-fit:cover;
+border-radius:20px;
+margin-bottom:18px;
+}
+
+.nft-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.nft-name{
+font-size:24px;
+font-weight:700;
+}
+
+.likes{
+font-size:14px;
+color:#666;
+}
+
+.rarity{
+display:inline-block;
+padding:7px 14px;
+border-radius:999px;
+font-size:13px;
+font-weight:600;
+margin-bottom:15px;
+}
+
+.common{
+background:#dfffe2;
+color:#0f9d58;
+}
+
+.rare{
+background:#e5ebff;
+color:#4169e1;
+}
+
+.epic{
+background:#f2e3ff;
+color:#8a2be2;
+}
+
+.legendary{
+background:#fff1d8;
+color:#ff9800;
+}
+
+.description{
+color:#666;
+line-height:1.7;
+margin-bottom:20px;
+font-size:15px;
+height:70px;
+overflow:hidden;
+}
+
+.nft-footer{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.price{
+font-size:24px;
+font-weight:700;
+color:#6f3cff;
+}
+
+.owner{
+font-size:14px;
+color:#666;
+}
+
+.buy-btn{
+width:100%;
+padding:15px;
+background:#6f3cff;
+border:none;
+border-radius:16px;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.2s;
+box-shadow:0 10px 20px rgba(111,60,255,0.2);
+}
+
+.buy-btn:hover{
+background:#5f30ef;
+}
+
+.buy-btn:disabled{
+background:#ccc;
+cursor:not-allowed;
+box-shadow:none;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+margin-top:80px;
+padding:60px 20px;
+background:#f8f8ff;
+text-align:center;
+border-top:1px solid #eee;
+}
+
+.footer h2{
+font-size:35px;
+color:#6f3cff;
+margin-bottom:15px;
+}
+
+.footer p{
+color:#666;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
+
+.header h1{
+font-size:42px;
+}
+
+.navbar{
+padding:20px;
+flex-direction:column;
+gap:20px;
+}
+
+.nav-links{
+flex-wrap:wrap;
+justify-content:center;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<div class="navbar">
+
+<div class="logo">
+DexPi <span>NFT</span>
+</div>
+
+<div class="nav-links">
+<a href="index.html">Home</a>
+<a href="marketplace.html">Marketplace</a>
+<a href="#">Collections</a>
+<a href="#">My NFTs</a>
+<a href="#">Upload</a>
+</div>
+
+<button class="login-btn" id="loginBtn">
+Login with Pi
+</button>
+
+</div>
+
+<!-- ================= HEADER ================= -->
+
+<div class="header">
+
+<h1>
+Explore <span>Marketplace</span>
+</h1>
+
+<p>
+Discover limited pixel NFTs, magical elf collections and legendary digital assets powered by Pi Network.
+</p>
+
+</div>
+
+<!-- ================= FILTERS ================= -->
+
+<div class="filters">
+
+<input
+type="text"
+class="search-box"
+placeholder="Search NFT..."
+id="searchInput"
+onkeyup="searchNFTs()"
+>
+
+<select class="filter-select" onchange="filterRarity(this.value)">
+<option value="all">All Rarities</option>
+<option value="common">Common</option>
+<option value="rare">Rare</option>
+<option value="epic">Epic</option>
+<option value="legendary">Legendary</option>
+</select>
+
+</div>
+
+<!-- ================= NFT GRID ================= -->
+
+<div class="nft-grid" id="nftGrid">
+
+<!-- NFT -->
+
+<div class="nft-card common-card">
+
+<img
+class="nft-image"
+src="https://i.imgur.com/2DhmtJ4.png"
+>
+
+<div class="nft-top">
+
+<div class="nft-name">
+Green Elf
+</div>
+
+<div class="likes">
+❤️ 124
+</div>
+
+</div>
+
+<div class="rarity common">
+Common
+</div>
+
+<div class="description">
+A peaceful forest elf from the ancient pixel kingdom. Limited edition collectible.
+</div>
+
+<div class="nft-footer">
+
+<div class="price">
+3 Pi
+</div>
+
+<div class="owner">
+10 editions
+</div>
+
+</div>
+
+<button class="buy-btn" onclick="buyNFT('Green Elf',3)">
+Buy NFT
+</button>
+
+</div>
+
+<!-- NFT -->
+
+<div class="nft-card rare-card">
+
+<img
+class="nft-image"
+src="https://i.imgur.com/n9z3sLg.png"
+>
+
+<div class="nft-top">
+
+<div class="nft-name">
+Fire Elf
+</div>
+
+<div class="likes">
+🔥 212
+</div>
+
+</div>
+
+<div class="rarity rare">
+Rare
+</div>
+
+<div class="description">
+Master of flames and lava magic. One of the rarest pixel elves in DexPi NFT.
+</div>
+
+<div class="nft-footer">
+
+<div class="price">
+8 Pi
+</div>
+
+<div class="owner">
+5 editions
+</div>
+
+</div>
+
+<button class="buy-btn" onclick="buyNFT('Fire Elf',8)">
+Buy NFT
+</button>
+
+</div>
+
+<!-- NFT -->
+
+<div class="nft-card epic-card">
+
+<img
+class="nft-image"
+src="https://i.imgur.com/jx17oHT.png"
+>
+
+<div class="nft-top">
+
+<div class="nft-name">
+Shadow Elf
+</div>
+
+<div class="likes">
+⚡ 491
+</div>
+
+</div>
+
+<div class="rarity epic">
+Epic
+</div>
+
+<div class="description">
+A mysterious warrior hidden in darkness and pixel shadows.
+</div>
+
+<div class="nft-footer">
+
+<div class="price">
+15 Pi
+</div>
+
+<div class="owner">
+2 editions
+</div>
+
+</div>
+
+<button class="buy-btn" onclick="buyNFT('Shadow Elf',15)">
+Buy NFT
+</button>
+
+</div>
+
+<!-- NFT -->
+
+<div class="nft-card legendary-card">
+
+<img
+class="nft-image"
+src="https://i.imgur.com/y9M4m0W.png"
+>
+
+<div class="nft-top">
+
+<div class="nft-name">
+Golden Elf King
+</div>
+
+<div class="likes">
+👑 1000
+</div>
+
+</div>
+
+<div class="rarity legendary">
+Legendary
+</div>
+
+<div class="description">
+The legendary king of all pixel elves. Extremely rare single edition NFT.
+</div>
+
+<div class="nft-footer">
+
+<div class="price">
+50 Pi
+</div>
+
+<div class="owner">
+1 edition
+</div>
+
+</div>
+
+<button class="buy-btn" onclick="buyNFT('Golden Elf King',50)">
+Buy NFT
+</button>
+
+</div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<div class="footer">
+
+<h2>
+DexPi NFT
+</h2>
+
+<p>
+Modern NFT marketplace powered by Pi Network.
+</p>
+
+</div>
+
+<!-- ================= SCRIPT ================= -->
+
+<script>
+
+/* ================= PI SDK ================= */
+
+Pi.init({
+version:"2.0",
+sandbox:true
+});
+
+/* ================= USER ================= */
+
+let currentUser = null;
+
+/* ================= LOGIN ================= */
+
+document.getElementById("loginBtn").onclick = async () => {
+
+try{
+
+const auth = await Pi.authenticate(
+["username","payments"],
+onIncompletePaymentFound
+);
+
+currentUser = auth.user;
+
+document.getElementById("loginBtn").innerText =
+auth.user.username;
+
+alert(
+"Welcome " + auth.user.username
+);
+
+}catch(err){
+
+console.log(err);
+
+alert(
+"Login failed.\nOpen inside Pi Browser."
+);
+
+}
+
+};
+
+/* ================= INCOMPLETE ================= */
+
+function onIncompletePaymentFound(payment){
+
+console.log(payment);
+
+}
+
+/* ================= BUY NFT ================= */
+
+async function buyNFT(name, amount){
+
+if(!currentUser){
+
+return alert("Please login first");
+
+}
+
+try{
+
+await Pi.createPayment({
+
+amount: amount,
+
+memo: `Purchase ${name} NFT`,
+
+metadata:{
+nft:name
+}
+
+},{
+
+onReadyForServerApproval: async function(paymentId){
+
+console.log(
+"Ready for approval",
+paymentId
+);
+
+},
+
+onReadyForServerCompletion: async function(paymentId, txid){
+
+console.log(
+"Completed",
+paymentId,
+txid
+);
+
+alert(
+"You successfully purchased:\n\n" +
+name
+);
+
+},
+
+onCancel: function(){
+
+alert(
+"Payment cancelled"
+);
+
+},
+
+onError: function(error){
+
+console.log(error);
+
+alert(
+"Payment failed"
+);
+
+}
+
+});
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+/* ================= SEARCH ================= */
+
+function searchNFTs(){
+
+const input =
+document.getElementById("searchInput")
+.value
+.toLowerCase();
+
+const cards =
+document.querySelectorAll(".nft-card");
+
+cards.forEach(card=>{
+
+const title =
+card.querySelector(".nft-name")
+.innerText
+.toLowerCase();
+
+if(title.includes(input)){
+
+card.style.display="block";
+
+}else{
+
+card.style.display="none";
+
+}
+
+});
+
+}
+
+/* ================= FILTER ================= */
+
+function filterRarity(type){
+
+const cards =
+document.querySelectorAll(".nft-card");
+
+cards.forEach(card=>{
+
+if(type==="all"){
+
+card.style.display="block";
+
+}else{
+
+if(card.classList.contains(type+"-card")){
+
+card.style.display="block";
+
+}else{
+
+card.style.display="none";
+
+}
+
+}
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>
