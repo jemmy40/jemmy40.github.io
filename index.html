@@ -1,258 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>DexPi NFT</title>
 
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
+
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-  background:#ffffff;
-  color:#111;
+background:#ffffff;
+color:#111;
+overflow-x:hidden;
 }
 
 /* ================= NAVBAR ================= */
 
 .navbar{
-  width:100%;
-  padding:20px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:#fff;
-  border-bottom:1px solid #eee;
-  position:sticky;
-  top:0;
-  z-index:100;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:white;
+border-bottom:1px solid #eee;
+position:sticky;
+top:0;
+z-index:100;
 }
 
 .logo{
-  font-size:28px;
-  font-weight:bold;
-  color:#6f3cff;
+font-size:32px;
+font-weight:700;
+color:#6f3cff;
 }
 
 .logo span{
-  color:#4da6ff;
+color:#4da6ff;
 }
 
-.nav-right{
-  display:flex;
-  align-items:center;
-  gap:15px;
+.nav-links{
+display:flex;
+gap:30px;
+align-items:center;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#111;
+font-weight:500;
+transition:0.2s;
+}
+
+.nav-links a:hover{
+color:#6f3cff;
 }
 
 .login-btn{
-  background:#6f3cff;
-  color:#fff;
-  border:none;
-  padding:12px 22px;
-  border-radius:14px;
-  cursor:pointer;
-  font-size:15px;
-  transition:0.2s;
-  box-shadow:0 5px 15px rgba(111,60,255,0.2);
+background:#6f3cff;
+color:white;
+border:none;
+padding:12px 24px;
+border-radius:16px;
+font-size:15px;
+cursor:pointer;
+transition:0.2s;
+box-shadow:0 10px 20px rgba(111,60,255,0.15);
 }
 
 .login-btn:hover{
-  transform:translateY(-2px);
+transform:translateY(-3px);
+}
+
+.user-box{
+display:flex;
+align-items:center;
+gap:10px;
 }
 
 .username{
-  font-weight:bold;
-  color:#6f3cff;
+font-weight:600;
+color:#6f3cff;
 }
 
 /* ================= HERO ================= */
 
 .hero{
-  width:100%;
-  padding:80px 20px 50px;
-  text-align:center;
+padding:90px 20px 70px;
+text-align:center;
 }
 
 .hero h1{
-  font-size:60px;
-  margin-bottom:20px;
-  color:#111;
+font-size:70px;
+line-height:1.1;
+margin-bottom:25px;
 }
 
 .hero h1 span{
-  color:#6f3cff;
+color:#6f3cff;
 }
 
 .hero p{
-  max-width:700px;
-  margin:auto;
-  font-size:20px;
-  color:#666;
-  line-height:1.6;
+max-width:750px;
+margin:auto;
+font-size:20px;
+line-height:1.8;
+color:#666;
+}
+
+.hero-buttons{
+margin-top:40px;
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.primary-btn{
+background:#6f3cff;
+color:white;
+border:none;
+padding:16px 28px;
+border-radius:18px;
+font-size:16px;
+cursor:pointer;
+transition:0.2s;
+box-shadow:0 10px 20px rgba(111,60,255,0.2);
+}
+
+.primary-btn:hover{
+transform:translateY(-3px);
+}
+
+.secondary-btn{
+background:#f3f3ff;
+color:#6f3cff;
+border:none;
+padding:16px 28px;
+border-radius:18px;
+font-size:16px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.secondary-btn:hover{
+background:#ececff;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+max-width:1200px;
+margin:20px auto 70px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+padding:20px;
+}
+
+.stat-box{
+background:#f8f8ff;
+padding:30px;
+border-radius:24px;
+text-align:center;
+border:1px solid #eee;
+}
+
+.stat-box h2{
+font-size:40px;
+color:#6f3cff;
+margin-bottom:10px;
+}
+
+.stat-box p{
+color:#666;
+}
+
+/* ================= SECTION TITLE ================= */
+
+.section-title{
+text-align:center;
+font-size:42px;
+margin-bottom:15px;
+}
+
+.section-subtitle{
+text-align:center;
+color:#777;
+margin-bottom:50px;
+font-size:18px;
 }
 
 /* ================= NFT GRID ================= */
 
-.section-title{
-  text-align:center;
-  font-size:35px;
-  margin-top:20px;
-  margin-bottom:40px;
-}
-
 .nft-grid{
-  width:100%;
-  max-width:1300px;
-  margin:auto;
-  padding:20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
+max-width:1300px;
+margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
 }
 
 /* ================= NFT CARD ================= */
 
 .nft-card{
-  background:#f7f7fb;
-  border-radius:25px;
-  padding:20px;
-  transition:0.25s;
-  border:1px solid #eee;
-  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+background:#f8f8ff;
+padding:18px;
+border-radius:28px;
+border:1px solid #eee;
+transition:0.25s;
+box-shadow:0 10px 25px rgba(0,0,0,0.04);
 }
 
 .nft-card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 15px 35px rgba(111,60,255,0.15);
+transform:translateY(-7px);
+box-shadow:0 20px 40px rgba(111,60,255,0.15);
 }
 
 .nft-image{
-  width:100%;
-  border-radius:18px;
-  margin-bottom:18px;
+width:100%;
+border-radius:20px;
+margin-bottom:18px;
+}
+
+.nft-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
 }
 
 .nft-name{
-  font-size:22px;
-  font-weight:bold;
-  margin-bottom:10px;
+font-size:24px;
+font-weight:700;
+}
+
+.likes{
+font-size:14px;
+color:#666;
 }
 
 .rarity{
-  display:inline-block;
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:13px;
-  margin-bottom:15px;
-  font-weight:bold;
+display:inline-block;
+padding:7px 14px;
+border-radius:999px;
+font-size:13px;
+font-weight:600;
+margin-bottom:15px;
 }
 
 .common{
-  background:#dfffe2;
-  color:#0f9d58;
+background:#dfffe2;
+color:#0f9d58;
 }
 
 .rare{
-  background:#e4e8ff;
-  color:#4c6fff;
+background:#e5ebff;
+color:#4169e1;
 }
 
 .epic{
-  background:#f0e3ff;
-  color:#8a2be2;
+background:#f2e3ff;
+color:#8a2be2;
 }
 
 .legendary{
-  background:#fff1d6;
-  color:#ff9800;
+background:#fff1d8;
+color:#ff9800;
+}
+
+.description{
+color:#666;
+line-height:1.7;
+margin-bottom:20px;
+font-size:15px;
+}
+
+.nft-footer{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
 }
 
 .price{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:18px;
-  color:#111;
+font-size:24px;
+font-weight:700;
+}
+
+.owner{
+font-size:14px;
+color:#666;
 }
 
 .buy-btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:16px;
-  background:#6f3cff;
-  color:#fff;
-  font-size:16px;
-  cursor:pointer;
-  transition:0.2s;
-  box-shadow:0 5px 15px rgba(111,60,255,0.2);
+width:100%;
+padding:15px;
+background:#6f3cff;
+border:none;
+border-radius:16px;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.2s;
+box-shadow:0 10px 20px rgba(111,60,255,0.2);
 }
 
 .buy-btn:hover{
-  background:#5a2fff;
+background:#5f30ef;
 }
 
 .buy-btn:disabled{
-  background:#ccc;
-  cursor:not-allowed;
-  box-shadow:none;
+background:#ccc;
+cursor:not-allowed;
+box-shadow:none;
+}
+
+/* ================= FEATURES ================= */
+
+.features{
+max-width:1200px;
+margin:100px auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.feature-box{
+background:#f8f8ff;
+padding:35px;
+border-radius:25px;
+border:1px solid #eee;
+}
+
+.feature-box h3{
+margin-bottom:15px;
+font-size:24px;
+}
+
+.feature-box p{
+color:#666;
+line-height:1.7;
 }
 
 /* ================= FOOTER ================= */
 
 .footer{
-  text-align:center;
-  padding:50px 20px;
-  color:#888;
-  font-size:14px;
+margin-top:80px;
+padding:60px 20px;
+background:#f8f8ff;
+text-align:center;
+border-top:1px solid #eee;
+}
+
+.footer-logo{
+font-size:35px;
+font-weight:700;
+color:#6f3cff;
+margin-bottom:20px;
+}
+
+.footer-logo span{
+color:#4da6ff;
+}
+
+.footer p{
+color:#666;
+margin-bottom:20px;
+}
+
+.footer-links{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.footer-links a{
+text-decoration:none;
+color:#6f3cff;
+font-weight:500;
 }
 
 /* ================= MOBILE ================= */
 
-@media(max-width:700px){
+@media(max-width:850px){
 
-  .navbar{
-    padding:20px;
-  }
+.hero h1{
+font-size:48px;
+}
 
-  .hero h1{
-    font-size:42px;
-  }
+.navbar{
+padding:20px;
+flex-direction:column;
+gap:20px;
+}
 
-  .hero p{
-    font-size:17px;
-  }
-
-  .section-title{
-    font-size:28px;
-  }
+.nav-links{
+flex-wrap:wrap;
+justify-content:center;
+}
 
 }
+
 </style>
+
 </head>
+
 <body>
 
 <!-- ================= NAVBAR ================= -->
 
 <div class="navbar">
 
-  <div class="logo">
-    DexPi <span>NFT</span>
-  </div>
+<div class="logo">
+DexPi <span>NFT</span>
+</div>
 
-  <div class="nav-right">
-    <div class="username" id="username"></div>
-    <button class="login-btn" id="loginBtn">
-      Login with Pi
-    </button>
-  </div>
+<div class="nav-links">
+<a href="#">Home</a>
+<a href="#">Marketplace</a>
+<a href="#">Collections</a>
+<a href="#">My NFTs</a>
+<a href="#">Upload</a>
+</div>
+
+<div class="user-box">
+<div class="username" id="username"></div>
+
+<button class="login-btn" id="loginBtn">
+Login with Pi
+</button>
+</div>
 
 </div>
 
@@ -260,139 +454,321 @@ body{
 
 <div class="hero">
 
-  <h1>
-    Discover Pixel <span>NFTs</span>
-  </h1>
+<h1>
+Discover Rare <span>Pixel NFTs</span>
+</h1>
 
-  <p>
-    Buy and collect unique pixel art NFTs using Pi Network.
-    Explore rare elves, legendary characters, and exclusive collectibles on DexPi NFT.
-  </p>
+<p>
+Buy, collect and own unique pixel art NFTs powered by Pi Network.
+Explore magical elves, legendary characters and exclusive digital collectibles on DexPi NFT.
+</p>
+
+<div class="hero-buttons">
+
+<button class="primary-btn">
+Explore Marketplace
+</button>
+
+<button class="secondary-btn">
+Create Collection
+</button>
 
 </div>
 
-<!-- ================= NFTs ================= -->
+</div>
+
+<!-- ================= STATS ================= -->
+
+<div class="stats">
+
+<div class="stat-box">
+<h2>12K+</h2>
+<p>Community Members</p>
+</div>
+
+<div class="stat-box">
+<h2>2.5K+</h2>
+<p>NFTs Created</p>
+</div>
+
+<div class="stat-box">
+<h2>850+</h2>
+<p>NFT Owners</p>
+</div>
+
+<div class="stat-box">
+<h2>120K Pi</h2>
+<p>Total Trading Volume</p>
+</div>
+
+</div>
+
+<!-- ================= TRENDING ================= -->
 
 <h2 class="section-title">
-  Trending NFTs
+Trending NFTs
 </h2>
+
+<p class="section-subtitle">
+Discover the most popular NFTs on DexPi NFT
+</p>
+
+<!-- ================= NFT GRID ================= -->
 
 <div class="nft-grid">
 
-  <!-- NFT 1 -->
+<!-- NFT -->
 
-  <div class="nft-card">
+<div class="nft-card">
 
-    <img
-      class="nft-image"
-      src="https://i.imgur.com/2DhmtJ4.png"
-    />
+<img
+class="nft-image"
+src="https://i.imgur.com/2DhmtJ4.png"
+>
 
-    <div class="nft-name">
-      Green Elf
-    </div>
+<div class="nft-top">
 
-    <div class="rarity common">
-      Common
-    </div>
+<div class="nft-name">
+Green Elf
+</div>
 
-    <div class="price">
-      3 Pi
-    </div>
+<div class="likes">
+❤️ 124
+</div>
 
-    <button class="buy-btn" onclick="buyNFT('Green Elf',3)">
-      Buy with Pi
-    </button>
+</div>
 
-  </div>
+<div class="rarity common">
+Common
+</div>
 
-  <!-- NFT 2 -->
+<div class="description">
+A peaceful forest elf from the ancient pixel kingdom.
+Limited collection.
+</div>
 
-  <div class="nft-card">
+<div class="nft-footer">
 
-    <img
-      class="nft-image"
-      src="https://i.imgur.com/n9z3sLg.png"
-    />
+<div class="price">
+3 Pi
+</div>
 
-    <div class="nft-name">
-      Fire Elf
-    </div>
+<div class="owner">
+10 editions
+</div>
 
-    <div class="rarity rare">
-      Rare
-    </div>
+</div>
 
-    <div class="price">
-      8 Pi
-    </div>
+<button class="buy-btn" onclick="buyNFT('Green Elf',3)">
+Buy with Pi
+</button>
 
-    <button class="buy-btn" onclick="buyNFT('Fire Elf',8)">
-      Buy with Pi
-    </button>
+</div>
 
-  </div>
+<!-- NFT -->
 
-  <!-- NFT 3 -->
+<div class="nft-card">
 
-  <div class="nft-card">
+<img
+class="nft-image"
+src="https://i.imgur.com/n9z3sLg.png"
+>
 
-    <img
-      class="nft-image"
-      src="https://i.imgur.com/jx17oHT.png"
-    />
+<div class="nft-top">
 
-    <div class="nft-name">
-      Shadow Elf
-    </div>
+<div class="nft-name">
+Fire Elf
+</div>
 
-    <div class="rarity epic">
-      Epic
-    </div>
+<div class="likes">
+🔥 212
+</div>
 
-    <div class="price">
-      15 Pi
-    </div>
+</div>
 
-    <button class="buy-btn" onclick="buyNFT('Shadow Elf',15)">
-      Buy with Pi
-    </button>
+<div class="rarity rare">
+Rare
+</div>
 
-  </div>
+<div class="description">
+Master of flames and lava magic. One of the rarest pixel elves.
+</div>
 
-  <!-- NFT 4 -->
+<div class="nft-footer">
 
-  <div class="nft-card">
+<div class="price">
+8 Pi
+</div>
 
-    <img
-      class="nft-image"
-      src="https://i.imgur.com/y9M4m0W.png"
-    />
+<div class="owner">
+5 editions
+</div>
 
-    <div class="nft-name">
-      Golden Elf King
-    </div>
+</div>
 
-    <div class="rarity legendary">
-      Legendary
-    </div>
+<button class="buy-btn" onclick="buyNFT('Fire Elf',8)">
+Buy with Pi
+</button>
 
-    <div class="price">
-      50 Pi
-    </div>
+</div>
 
-    <button class="buy-btn" onclick="buyNFT('Golden Elf King',50)">
-      Buy with Pi
-    </button>
+<!-- NFT -->
 
-  </div>
+<div class="nft-card">
+
+<img
+class="nft-image"
+src="https://i.imgur.com/jx17oHT.png"
+>
+
+<div class="nft-top">
+
+<div class="nft-name">
+Shadow Elf
+</div>
+
+<div class="likes">
+⚡ 491
+</div>
+
+</div>
+
+<div class="rarity epic">
+Epic
+</div>
+
+<div class="description">
+A mysterious warrior hidden in darkness and pixel shadows.
+</div>
+
+<div class="nft-footer">
+
+<div class="price">
+15 Pi
+</div>
+
+<div class="owner">
+2 editions
+</div>
+
+</div>
+
+<button class="buy-btn" onclick="buyNFT('Shadow Elf',15)">
+Buy with Pi
+</button>
+
+</div>
+
+<!-- NFT -->
+
+<div class="nft-card">
+
+<img
+class="nft-image"
+src="https://i.imgur.com/y9M4m0W.png"
+>
+
+<div class="nft-top">
+
+<div class="nft-name">
+Golden Elf King
+</div>
+
+<div class="likes">
+👑 1000
+</div>
+
+</div>
+
+<div class="rarity legendary">
+Legendary
+</div>
+
+<div class="description">
+The legendary king of all pixel elves. Extremely limited edition.
+</div>
+
+<div class="nft-footer">
+
+<div class="price">
+50 Pi
+</div>
+
+<div class="owner">
+1 edition
+</div>
+
+</div>
+
+<button class="buy-btn" onclick="buyNFT('Golden Elf King',50)">
+Buy with Pi
+</button>
+
+</div>
+
+</div>
+
+<!-- ================= FEATURES ================= -->
+
+<div class="features">
+
+<div class="feature-box">
+
+<h3>
+⚡ Fast Pi Payments
+</h3>
+
+<p>
+Buy NFTs instantly using Pi Network payments directly inside Pi Browser.
+</p>
+
+</div>
+
+<div class="feature-box">
+
+<h3>
+🎨 Pixel Art Collections
+</h3>
+
+<p>
+Explore beautiful handcrafted pixel art NFTs with rarity and limited editions.
+</p>
+
+</div>
+
+<div class="feature-box">
+
+<h3>
+🔒 Secure Ownership
+</h3>
+
+<p>
+Your NFTs are linked to your Pi account and protected through the platform.
+</p>
+
+</div>
 
 </div>
 
 <!-- ================= FOOTER ================= -->
 
 <div class="footer">
-  © 2026 DexPi NFT — Powered by Pi Network
+
+<div class="footer-logo">
+DexPi <span>NFT</span>
+</div>
+
+<p>
+The modern NFT marketplace powered by Pi Network.
+</p>
+
+<div class="footer-links">
+<a href="#">Privacy Policy</a>
+<a href="#">Terms of Service</a>
+<a href="#">Marketplace</a>
+<a href="#">Support</a>
+</div>
+
 </div>
 
 <!-- ================= SCRIPT ================= -->
@@ -402,8 +778,8 @@ body{
 /* ================= PI SDK ================= */
 
 Pi.init({
-  version: "2.0",
-  sandbox: true
+version:"2.0",
+sandbox:true
 });
 
 /* ================= USER ================= */
@@ -414,28 +790,34 @@ let currentUser = null;
 
 document.getElementById("loginBtn").onclick = async () => {
 
-  try{
+try{
 
-    const auth = await Pi.authenticate(
-      ["username","payments"],
-      onIncompletePaymentFound
-    );
+const auth = await Pi.authenticate(
+["username","payments"],
+onIncompletePaymentFound
+);
 
-    currentUser = auth.user;
+currentUser = auth.user;
 
-    document.getElementById("username").innerText =
-      auth.user.username;
+document.getElementById("username").innerText =
+auth.user.username;
 
-    document.getElementById("loginBtn").style.display =
-      "none";
+document.getElementById("loginBtn").innerText =
+"Connected";
 
-    alert("Welcome " + auth.user.username);
+alert(
+"Welcome " + auth.user.username
+);
 
-  }catch(err){
+}catch(err){
 
-    alert("Login failed. Open in Pi Browser.");
+console.log(err);
 
-  }
+alert(
+"Login failed.\nOpen inside Pi Browser."
+);
+
+}
 
 };
 
@@ -443,7 +825,7 @@ document.getElementById("loginBtn").onclick = async () => {
 
 function onIncompletePaymentFound(payment){
 
-  console.log(payment);
+console.log(payment);
 
 }
 
@@ -451,64 +833,75 @@ function onIncompletePaymentFound(payment){
 
 async function buyNFT(name, amount){
 
-  if(!currentUser){
+if(!currentUser){
 
-    return alert("Login required");
+return alert("Please login first");
 
-  }
+}
 
-  try{
+try{
 
-    await Pi.createPayment({
+await Pi.createPayment({
 
-      amount: amount,
+amount: amount,
 
-      memo: `Purchase ${name} NFT`,
+memo: `Purchase ${name} NFT`,
 
-      metadata: {
-        nft: name
-      }
+metadata:{
+nft:name
+}
 
-    },{
+},{
 
-      onReadyForServerApproval: async function(paymentId){
+onReadyForServerApproval: async function(paymentId){
 
-        console.log("Ready for approval", paymentId);
+console.log(
+"Ready for approval",
+paymentId
+);
 
-      },
+},
 
-      onReadyForServerCompletion: async function(paymentId, txid){
+onReadyForServerCompletion: async function(paymentId, txid){
 
-        console.log("Payment completed", paymentId, txid);
+console.log(
+"Completed",
+paymentId,
+txid
+);
 
-        alert(
-          "NFT purchased successfully!\n\n" +
-          "You now own: " + name
-        );
+alert(
+"NFT purchased successfully!\n\n" +
+"You now own: " + name
+);
 
-      },
+},
 
-      onCancel: function(){
+onCancel: function(){
 
-        alert("Payment cancelled");
+alert(
+"Payment cancelled"
+);
 
-      },
+},
 
-      onError: function(error){
+onError: function(error){
 
-        console.error(error);
+console.log(error);
 
-        alert("Payment failed");
+alert(
+"Payment failed"
+);
 
-      }
+}
 
-    });
+});
 
-  }catch(err){
+}catch(err){
 
-    console.error(err);
+console.log(err);
 
-  }
+}
 
 }
 
