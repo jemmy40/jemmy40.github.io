@@ -609,68 +609,124 @@ reader.readAsDataURL(file);
 
 /* ================= PUBLISH NFT ================= */
 
+<script>
+
 async function publishNFT(){
 
-const name = document.getElementById("nftName").value;
-const price = document.getElementById("nftPrice").value;
-const supply = document.getElementById("nftSupply").value;
-const rarity = document.getElementById("nftRarity").value;
-const description = document.getElementById("nftDescription").value;
+const name =
+document.getElementById("nftName").value;
 
-if(!name || !price || !supply || !description){
-  alert("Please fill all fields");
-  return;
+const price =
+document.getElementById("nftPrice").value;
+
+const supply =
+document.getElementById("nftSupply").value;
+
+const rarity =
+document.getElementById("nftRarity").value;
+
+const description =
+document.getElementById("nftDescription").value;
+
+const file =
+document.getElementById("fileInput").files[0];
+
+if(
+!name ||
+!price ||
+!supply ||
+!description ||
+!file
+){
+alert("Please fill all fields");
+return;
 }
 
-/* الصورة (مؤقتاً base64) */
-const image = preview.src || "";
+try{
 
-try {
+/* ================= CLOUDINARY ================= */
+
+const formData = new FormData();
+
+formData.append("file", file);
+
+formData.append(
+"upload_preset",
+"dexpi_unsigned"
+);
+
+/* IMPORTANT:
+Replace YOUR_CLOUD_NAME
+*/
+
+const cloudinaryResponse =
+await fetch(
+
+"https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload",
+
+{
+method:"POST",
+body: formData
+}
+
+);
+
+const cloudinaryData =
+await cloudinaryResponse.json();
+
+const imageUrl =
+cloudinaryData.secure_url;
+
+/* ================= SAVE TO FIREBASE ================= */
 
 await db.collection("nfts").add({
-  name: name,
-  price: Number(price),
-  supply: Number(supply),
-  rarity: rarity,
-  description: description,
-  image: image,
-  createdAt: Date.now()
+
+name:name,
+
+price:Number(price),
+
+supply:Number(supply),
+
+rarity:rarity,
+
+description:description,
+
+image:imageUrl,
+
+createdAt: Date.now()
+
 });
 
-alert("NFT published to Firebase successfully!");
+/* ================= SUCCESS ================= */
+
+alert(
+"NFT published successfully!"
+);
+
+/* ================= RESET ================= */
 
 document.getElementById("nftName").value = "";
+
 document.getElementById("nftPrice").value = "";
+
 document.getElementById("nftSupply").value = "";
+
 document.getElementById("nftDescription").value = "";
 
 preview.style.display = "none";
 
-} catch(err){
-  console.log(err);
-  alert("Error saving NFT");
-}
+}catch(err){
+
+console.log(err);
+
+alert(
+"Upload failed"
+);
 
 }
-const firebaseConfig = {
 
-  apiKey: "AIzaSyBzBGRgEBFSGLrxxYbRv3v3qUXBNXsDQq8",
+}
 
-  authDomain: "dexpi-2cbae.firebaseapp.com",
-
-  projectId: "dexpi-2cbae",
-
-  storageBucket: "dexpi-2cbae.firebasestorage.app",
-
-  messagingSenderId: "712524945549",
-
-  appId: "1:712524945549:web:8f1d3fd88efec5a4932ac4",
-
-  measurementId: "G-3BX9B89X6H"
-
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
 </script>
 
 </body>
