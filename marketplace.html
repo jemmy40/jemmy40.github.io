@@ -644,9 +644,7 @@ console.log(payment);
 async function buyNFT(name, amount){
 
 if(!currentUser){
-
 return alert("Please login first");
-
 }
 
 try{
@@ -665,33 +663,40 @@ nft:name
 
 onReadyForServerApproval: async function(paymentId){
 
-console.log(
-"Ready for approval",
+await fetch("/api/approve-payment",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body: JSON.stringify({
 paymentId
-);
+})
+});
 
 },
 
 onReadyForServerCompletion: async function(paymentId, txid){
 
-console.log(
-"Completed",
+await fetch("/api/complete-payment",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body: JSON.stringify({
 paymentId,
 txid
-);
+})
+});
 
 alert(
-"You successfully purchased:\n\n" +
-name
+"NFT purchased successfully!"
 );
 
 },
 
 onCancel: function(){
 
-alert(
-"Payment cancelled"
-);
+alert("Payment cancelled");
 
 },
 
@@ -699,9 +704,7 @@ onError: function(error){
 
 console.log(error);
 
-alert(
-"Payment failed"
-);
+alert("Payment failed");
 
 }
 
