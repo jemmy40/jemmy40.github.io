@@ -7,6 +7,8 @@
 
 <title>Upload NFT - DexPi NFT</title>
 
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -89,6 +91,39 @@ margin-bottom:50px;
 line-height:1.7;
 }
 
+/* ================= ADMIN ================= */
+
+.admin-panel{
+background:#f8f8ff;
+padding:25px;
+border-radius:25px;
+border:1px solid #eee;
+margin-bottom:30px;
+text-align:center;
+}
+
+.admin-btn{
+background:#6f3cff;
+color:white;
+border:none;
+padding:15px 25px;
+border-radius:18px;
+font-size:16px;
+cursor:pointer;
+transition:0.2s;
+box-shadow:0 10px 20px rgba(111,60,255,0.15);
+}
+
+.admin-btn:hover{
+transform:translateY(-3px);
+}
+
+.admin-status{
+margin-top:15px;
+font-weight:600;
+color:#6f3cff;
+}
+
 /* ================= FORM ================= */
 
 .upload-box{
@@ -97,6 +132,7 @@ padding:40px;
 border-radius:30px;
 border:1px solid #eee;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
+display:none;
 }
 
 .form-group{
@@ -268,8 +304,8 @@ DexPi <span>NFT</span>
 <div class="nav-links">
 <a href="index.html">Home</a>
 <a href="marketplace.html">Marketplace</a>
-<a href="#">Collections</a>
-<a href="#">My NFTs</a>
+<a href="collections.html">Collections</a>
+<a href="mynfts.html">My NFTs</a>
 <a href="upload.html">Upload</a>
 </div>
 
@@ -284,12 +320,26 @@ Create Your <span>NFT</span>
 </h1>
 
 <p class="page-subtitle">
-Upload your pixel art NFT and publish it on DexPi NFT marketplace.
+Only DexPi admin can publish official NFT collections.
 </p>
+
+<!-- ================= ADMIN LOGIN ================= -->
+
+<div class="admin-panel">
+
+<button class="admin-btn" id="loginBtn">
+Login with Pi
+</button>
+
+<div class="admin-status" id="adminStatus">
+Admin authentication required
+</div>
+
+</div>
 
 <!-- ================= FORM ================= -->
 
-<div class="upload-box">
+<div class="upload-box" id="uploadBox">
 
 <div class="form-group">
 
@@ -300,6 +350,7 @@ NFT Name
 <input
 type="text"
 class="form-input"
+id="nftName"
 placeholder="Example: Fire Elf"
 />
 
@@ -314,7 +365,23 @@ Price (Pi)
 <input
 type="number"
 class="form-input"
+id="nftPrice"
 placeholder="Example: 10"
+/>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Supply
+</label>
+
+<input
+type="number"
+class="form-input"
+id="nftSupply"
+placeholder="Example: 100"
 />
 
 </div>
@@ -325,7 +392,7 @@ placeholder="Example: 10"
 Rarity
 </label>
 
-<select class="form-select">
+<select class="form-select" id="nftRarity">
 
 <option>
 Common
@@ -355,6 +422,7 @@ Description
 
 <textarea
 class="form-textarea"
+id="nftDescription"
 placeholder="Describe your NFT..."
 ></textarea>
 
@@ -425,6 +493,89 @@ Create and trade pixel NFTs with Pi Network.
 
 <script>
 
+/* ================= PI INIT ================= */
+
+Pi.init({
+version:"2.0",
+sandbox:true
+});
+
+/* ================= ADMIN USERNAME ================= */
+
+/*
+IMPORTANT:
+Replace this with YOUR Pi username
+*/
+
+const ADMIN_USERNAME = "ضع_اسمك_في_باي";
+
+/* ================= USER ================= */
+
+let currentUser = null;
+
+/* ================= ELEMENTS ================= */
+
+const loginBtn =
+document.getElementById("loginBtn");
+
+const adminStatus =
+document.getElementById("adminStatus");
+
+const uploadBox =
+document.getElementById("uploadBox");
+
+/* ================= LOGIN ================= */
+
+loginBtn.onclick = async () => {
+
+try{
+
+const auth = await Pi.authenticate(
+["username"],
+onIncompletePaymentFound
+);
+
+currentUser = auth.user;
+
+if(currentUser.username === ADMIN_USERNAME){
+
+adminStatus.innerHTML =
+"✅ Welcome Admin: " +
+currentUser.username;
+
+uploadBox.style.display = "block";
+
+loginBtn.innerText = "Connected";
+
+}else{
+
+adminStatus.innerHTML =
+"❌ Access denied";
+
+uploadBox.style.display = "none";
+
+}
+
+}catch(err){
+
+console.log(err);
+
+alert(
+"Login failed.\nOpen inside Pi Browser."
+);
+
+}
+
+};
+
+/* ================= PAYMENT PLACEHOLDER ================= */
+
+function onIncompletePaymentFound(payment){
+
+console.log(payment);
+
+}
+
 /* ================= IMAGE PREVIEW ================= */
 
 const fileInput =
@@ -459,10 +610,49 @@ reader.readAsDataURL(file);
 
 function publishNFT(){
 
-alert(
-"NFT published successfully!\n\n" +
-"This is currently a demo version."
+const name =
+document.getElementById("nftName").value;
+
+const price =
+document.getElementById("nftPrice").value;
+
+const supply =
+document.getElementById("nftSupply").value;
+
+const rarity =
+document.getElementById("nftRarity").value;
+
+const description =
+document.getElementById("nftDescription").value;
+
+if(
+!name ||
+!price ||
+!supply ||
+!description
+){
+
+return alert(
+"Please complete all fields"
 );
+
+}
+
+alert(
+"NFT Published Successfully!\n\n" +
+"Name: " + name + "\n" +
+"Price: " + price + " Pi\n" +
+"Supply: " + supply + "\n" +
+"Rarity: " + rarity
+);
+
+/*
+NEXT STEP:
+Here later we will connect:
+- Firebase
+- Cloudinary
+- Backend API
+*/
 
 }
 
