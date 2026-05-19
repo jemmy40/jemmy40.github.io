@@ -609,7 +609,7 @@ reader.readAsDataURL(file);
 
 /* ================= PUBLISH NFT ================= */
 
-<script>
+
 
 async function publishNFT(){
 
@@ -727,6 +727,30 @@ alert(
 
 }
 
+/* ================= FIREBASE ================= */
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyBzBGRgEBFSGLrxxYbRv3v3qUXBNXsDQq8",
+
+  authDomain: "dexpi-2cbae.firebaseapp.com",
+
+  projectId: "dexpi-2cbae",
+
+  storageBucket: "dexpi-2cbae.firebasestorage.app",
+
+  messagingSenderId: "712524945549",
+
+  appId: "1:712524945549:web:8f1d3fd88efec5a4932ac4",
+
+  measurementId: "G-3BX9B89X6H"
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+  
 </script>
 
 </body>
