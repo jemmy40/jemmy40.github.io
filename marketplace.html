@@ -462,21 +462,25 @@ return alert("Please login first");
 
 try{
 
-await Pi.createPayment({
+const paymentData = {
 
-amount: amount,
+amount: Number(amount),
 
 memo: `Purchase ${name} NFT`,
 
-metadata:{
-nft:name
+metadata: {
+nft: name
 }
 
-},{
+};
+
+const paymentCallbacks = {
 
 onReadyForServerApproval: async function(paymentId){
 
-await fetch("/api/approve-payment",{
+console.log("APPROVE:", paymentId);
+
+const res = await fetch("/api/approve-payment",{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
@@ -486,11 +490,15 @@ paymentId
 })
 });
 
+console.log(await res.json());
+
 },
 
 onReadyForServerCompletion: async function(paymentId, txid){
 
-await fetch("/api/complete-payment",{
+console.log("COMPLETE:", paymentId, txid);
+
+const res = await fetch("/api/complete-payment",{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
@@ -501,31 +509,41 @@ txid
 })
 });
 
-alert(
-"NFT purchased successfully!"
-);
+console.log(await res.json());
+
+alert("NFT purchased successfully!");
 
 },
 
-onCancel: function(){
+onCancel: function(paymentId){
+
+console.log("CANCELLED", paymentId);
 
 alert("Payment cancelled");
 
 },
 
-onError: function(error){
+onError: function(error, payment){
 
-console.log(error);
+console.log("PAYMENT ERROR:", error);
+console.log(payment);
 
 alert("Payment failed");
 
 }
 
-});
+};
+
+await Pi.createPayment(
+paymentData,
+paymentCallbacks
+);
 
 }catch(err){
 
-console.log(err);
+console.log("MAIN ERROR:", err);
+
+alert(err.message);
 
 }
 
@@ -683,7 +701,7 @@ ${nft.supply} editions
 
 <button 
 class="buy-btn"
-onclick="buyNFT('${nft.name}', ${nft.price})"
+onclick="buyNFT('${nft.name}', ${Number(nft.price)})"
 >
 Buy with Pi
 </button>
