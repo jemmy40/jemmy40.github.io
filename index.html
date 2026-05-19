@@ -671,26 +671,27 @@ console.log(err);
 async function buyNFT(name, amount){
 
 if(!currentUser){
-return alert("Please login first");
+alert("Please login first");
+return;
 }
 
 try{
 
-await Pi.createPayment({
-
-amount: amount,
-
+const paymentData = {
+amount: Number(amount),
 memo: `Purchase ${name} NFT`,
-
-metadata:{
-nft:name
+metadata: {
+nft: name
 }
+};
 
-},{
+const paymentCallbacks = {
 
 onReadyForServerApproval: async function(paymentId){
 
-await fetch("/api/approve-payment",{
+console.log("APPROVAL:", paymentId);
+
+const res = await fetch("/api/approve-payment",{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
@@ -700,52 +701,66 @@ paymentId
 })
 });
 
+console.log(await res.json());
+
 },
 
 onReadyForServerCompletion: async function(paymentId, txid){
 
-await fetch("/api/complete-payment",{
+console.log("COMPLETE:", paymentId, txid);
+
+const res = await fetch("/api/complete-payment",{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
 },
 body: JSON.stringify({
 paymentId,
-txid
+txid: txid?.txid || txid
 })
 });
 
-alert(
-"NFT purchased successfully!"
-);
+console.log(await res.json());
+
+alert("NFT purchased successfully!");
 
 },
 
-onCancel: function(){
+onCancel: function(paymentId){
+
+console.log("CANCEL:", paymentId);
 
 alert("Payment cancelled");
 
 },
 
-onError: function(error){
+onError: function(error, payment){
 
+console.log("PI ERROR:");
 console.log(error);
+console.log(payment);
 
 alert("Payment failed");
 
 }
 
-});
+};
+
+await Pi.createPayment(
+paymentData,
+paymentCallbacks
+);
 
 }catch(err){
 
+console.log("CREATE PAYMENT ERROR:");
 console.log(err);
 
+alert(err.message || "Payment failed");
+
 }
 
 }
-</script>
-<script>
 
 /* ================= FIREBASE ================= */
 
