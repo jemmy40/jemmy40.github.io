@@ -636,9 +636,33 @@ alert(
 
 /* ================= INCOMPLETE PAYMENT ================= */
 
-function onIncompletePaymentFound(payment){
+async function onIncompletePaymentFound(payment){
 
-console.log(payment);
+console.log(
+"INCOMPLETE PAYMENT:",
+payment
+);
+
+try{
+
+await fetch("/api/complete-payment",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body: JSON.stringify({
+paymentId: payment.identifier,
+txid: payment.transaction?.txid
+})
+});
+
+console.log("Pending payment completed");
+
+}catch(err){
+
+console.log(err);
+
+}
 
 }
 
