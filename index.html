@@ -671,25 +671,28 @@ console.log(err);
 async function buyNFT(name, amount){
 
 if(!currentUser){
-alert("Please login first");
-return;
+return alert("Please login first");
 }
 
 try{
 
 const paymentData = {
+
 amount: Number(amount),
+
 memo: `Purchase ${name} NFT`,
+
 metadata: {
 nft: name
 }
+
 };
 
 const paymentCallbacks = {
 
 onReadyForServerApproval: async function(paymentId){
 
-console.log("APPROVAL:", paymentId);
+console.log("APPROVE:", paymentId);
 
 const res = await fetch("/api/approve-payment",{
 method:"POST",
@@ -716,7 +719,7 @@ headers:{
 },
 body: JSON.stringify({
 paymentId,
-txid: txid?.txid || txid
+txid
 })
 });
 
@@ -728,7 +731,7 @@ alert("NFT purchased successfully!");
 
 onCancel: function(paymentId){
 
-console.log("CANCEL:", paymentId);
+console.log("CANCELLED", paymentId);
 
 alert("Payment cancelled");
 
@@ -736,8 +739,7 @@ alert("Payment cancelled");
 
 onError: function(error, payment){
 
-console.log("PI ERROR:");
-console.log(error);
+console.log("PAYMENT ERROR:", error);
 console.log(payment);
 
 alert("Payment failed");
@@ -753,10 +755,9 @@ paymentCallbacks
 
 }catch(err){
 
-console.log("CREATE PAYMENT ERROR:");
-console.log(err);
+console.log("MAIN ERROR:", err);
 
-alert(err.message || "Payment failed");
+alert(err.message);
 
 }
 
