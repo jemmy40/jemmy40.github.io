@@ -189,7 +189,7 @@ txid
 
 const response = await axios.post(
 
-`https://api.sandbox.minepi.com/v2/payments/${paymentId}/complete`,
+`https://api.minepi.com/v2/payments/${paymentId}/complete`,
 
 {
 txid: txid
