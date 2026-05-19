@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Collections - DexPi NFT</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#ffffff;
+color:#111;
+overflow-x:hidden;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:white;
+border-bottom:1px solid #eee;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-size:32px;
+font-weight:700;
+color:#6f3cff;
+}
+
+.logo span{
+color:#4da6ff;
+}
+
+.nav-links{
+display:flex;
+gap:30px;
+align-items:center;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#111;
+font-weight:500;
+transition:0.2s;
+}
+
+.nav-links a:hover{
+color:#6f3cff;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+padding:80px 20px 60px;
+text-align:center;
+}
+
+.hero h1{
+font-size:64px;
+margin-bottom:20px;
+}
+
+.hero h1 span{
+color:#6f3cff;
+}
+
+.hero p{
+max-width:750px;
+margin:auto;
+font-size:18px;
+line-height:1.8;
+color:#666;
+}
+
+/* ================= COLLECTION GRID ================= */
+
+.collection-grid{
+max-width:1300px;
+margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+}
+
+/* ================= COLLECTION CARD ================= */
+
+.collection-card{
+background:#f8f8ff;
+border-radius:30px;
+overflow:hidden;
+border:1px solid #eee;
+transition:0.25s;
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.collection-card:hover{
+transform:translateY(-8px);
+box-shadow:0 20px 40px rgba(111,60,255,0.15);
+}
+
+.collection-banner{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.collection-content{
+padding:25px;
+}
+
+.collection-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.collection-name{
+font-size:28px;
+font-weight:700;
+}
+
+.collection-items{
+font-size:14px;
+color:#666;
+}
+
+.creator{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:20px;
+}
+
+.creator-avatar{
+width:45px;
+height:45px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.creator-name{
+font-weight:600;
+color:#6f3cff;
+}
+
+.collection-description{
+color:#666;
+line-height:1.8;
+margin-bottom:25px;
+font-size:15px;
+}
+
+.stats{
+display:flex;
+justify-content:space-between;
+margin-bottom:25px;
+}
+
+.stat-box{
+background:white;
+padding:15px;
+border-radius:18px;
+flex:1;
+margin:0 5px;
+text-align:center;
+border:1px solid #eee;
+}
+
+.stat-box h3{
+font-size:20px;
+color:#6f3cff;
+margin-bottom:5px;
+}
+
+.stat-box p{
+font-size:13px;
+color:#666;
+}
+
+.view-btn{
+width:100%;
+padding:16px;
+border:none;
+background:#6f3cff;
+color:white;
+font-size:16px;
+border-radius:18px;
+cursor:pointer;
+transition:0.2s;
+box-shadow:0 10px 20px rgba(111,60,255,0.2);
+}
+
+.view-btn:hover{
+background:#5f30ef;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+margin-top:80px;
+padding:60px 20px;
+background:#f8f8ff;
+text-align:center;
+border-top:1px solid #eee;
+}
+
+.footer-logo{
+font-size:35px;
+font-weight:700;
+color:#6f3cff;
+margin-bottom:20px;
+}
+
+.footer-logo span{
+color:#4da6ff;
+}
+
+.footer p{
+color:#666;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
+
+.navbar{
+padding:20px;
+flex-direction:column;
+gap:20px;
+}
+
+.nav-links{
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<div class="navbar">
+
+<div class="logo">
+DexPi <span>NFT</span>
+</div>
+
+<div class="nav-links">
+<a href="index.html">Home</a>
+<a href="marketplace.html">Marketplace</a>
+<a href="collections.html">Collections</a>
+<a href="#">My NFTs</a>
+<a href="upload.html">Upload</a>
+</div>
+
+</div>
+
+<!-- ================= HERO ================= -->
+
+<div class="hero">
+
+<h1>
+Explore NFT <span>Collections</span>
+</h1>
+
+<p>
+Discover amazing pixel art collections created by artists from the Pi Network community.
+</p>
+
+</div>
+
+<!-- ================= COLLECTION GRID ================= -->
+
+<div class="collection-grid">
+
+<!-- COLLECTION -->
+
+<div class="collection-card">
+
+<img
+class="collection-banner"
+src="https://i.imgur.com/2DhmtJ4.png"
+>
+
+<div class="collection-content">
+
+<div class="collection-top">
+
+<div class="collection-name">
+Elf Kingdom
+</div>
+
+<div class="collection-items">
+120 NFTs
+</div>
+
+</div>
+
+<div class="creator">
+
+<img
+class="creator-avatar"
+src="https://i.imgur.com/QwhZRyL.png"
+>
+
+<div class="creator-name">
+@PixelMaster
+</div>
+
+</div>
+
+<div class="collection-description">
+A magical collection of pixel elves, kings and fantasy warriors from the ancient kingdom.
+</div>
+
+<div class="stats">
+
+<div class="stat-box">
+<h3>12K Pi</h3>
+<p>Volume</p>
+</div>
+
+<div class="stat-box">
+<h3>850</h3>
+<p>Owners</p>
+</div>
+
+</div>
+
+<button class="view-btn">
+View Collection
+</button>
+
+</div>
+
+</div>
+
+<!-- COLLECTION -->
+
+<div class="collection-card">
+
+<img
+class="collection-banner"
+src="https://i.imgur.com/n9z3sLg.png"
+>
+
+<div class="collection-content">
+
+<div class="collection-top">
+
+<div class="collection-name">
+Fire Realms
+</div>
+
+<div class="collection-items">
+80 NFTs
+</div>
+
+</div>
+
+<div class="creator">
+
+<img
+class="creator-avatar"
+src="https://i.imgur.com/5cLDeYV.png"
+>
+
+<div class="creator-name">
+@FlameStudio
+</div>
+
+</div>
+
+<div class="collection-description">
+Legendary fire creatures and lava guardians crafted in beautiful pixel style.
+</div>
+
+<div class="stats">
+
+<div class="stat-box">
+<h3>9K Pi</h3>
+<p>Volume</p>
+</div>
+
+<div class="stat-box">
+<h3>420</h3>
+<p>Owners</p>
+</div>
+
+</div>
+
+<button class="view-btn">
+View Collection
+</button>
+
+</div>
+
+</div>
+
+<!-- COLLECTION -->
+
+<div class="collection-card">
+
+<img
+class="collection-banner"
+src="https://i.imgur.com/jx17oHT.png"
+>
+
+<div class="collection-content">
+
+<div class="collection-top">
+
+<div class="collection-name">
+Shadow Clan
+</div>
+
+<div class="collection-items">
+45 NFTs
+</div>
+
+</div>
+
+<div class="creator">
+
+<img
+class="creator-avatar"
+src="https://i.imgur.com/vY6QF0A.png"
+>
+
+<div class="creator-name">
+@DarkPixel
+</div>
+
+</div>
+
+<div class="collection-description">
+Dark assassins and shadow warriors hidden deep inside the pixel universe.
+</div>
+
+<div class="stats">
+
+<div class="stat-box">
+<h3>15K Pi</h3>
+<p>Volume</p>
+</div>
+
+<div class="stat-box">
+<h3>210</h3>
+<p>Owners</p>
+</div>
+
+</div>
+
+<button class="view-btn">
+View Collection
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<div class="footer">
+
+<div class="footer-logo">
+DexPi <span>NFT</span>
+</div>
+
+<p>
+The modern NFT marketplace powered by Pi Network.
+</p>
+
+</div>
+
+</body>
+
+</html>
