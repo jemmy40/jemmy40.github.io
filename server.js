@@ -143,7 +143,7 @@ const { paymentId } = req.body;
 
 const response = await axios.post(
 
-`https://api.minepi.com/v2/payments/${paymentId}/approve`,
+`https://api.sandbox.minepi.com/${paymentId}/approve`,
 {},
 
 {
@@ -189,7 +189,7 @@ txid
 
 const response = await axios.post(
 
-`https://api.minepi.com/v2/payments/${paymentId}/complete`,
+`https://api.sandbox.minepi.com/${paymentId}/complete`,
 
 {
 txid: txid
