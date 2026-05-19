@@ -143,7 +143,7 @@ const { paymentId } = req.body;
 
 const response = await axios.post(
 
-`https://api.sandbox.minepi.com/v2/payments/${paymentId}/approve`,
+`https://api.minepi.com/v2/payments/${paymentId}/approve`,
 {},
 
 {
