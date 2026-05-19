@@ -516,197 +516,7 @@ Discover the most popular NFTs on DexPi NFT
 
 <!-- ================= NFT GRID ================= -->
 
-<div class="nft-grid">
-
-<!-- NFT -->
-
-<div class="nft-card">
-
-<img
-class="nft-image"
-src="https://i.imgur.com/2DhmtJ4.png"
->
-
-<div class="nft-top">
-
-<div class="nft-name">
-Green Elf
-</div>
-
-<div class="likes">
-❤️ 124
-</div>
-
-</div>
-
-<div class="rarity common">
-Common
-</div>
-
-<div class="description">
-A peaceful forest elf from the ancient pixel kingdom.
-Limited collection.
-</div>
-
-<div class="nft-footer">
-
-<div class="price">
-3 Pi
-</div>
-
-<div class="owner">
-10 editions
-</div>
-
-</div>
-
-<button class="buy-btn" onclick="buyNFT('Green Elf',3)">
-Buy with Pi
-</button>
-
-</div>
-
-<!-- NFT -->
-
-<div class="nft-card">
-
-<img
-class="nft-image"
-src="https://i.imgur.com/n9z3sLg.png"
->
-
-<div class="nft-top">
-
-<div class="nft-name">
-Fire Elf
-</div>
-
-<div class="likes">
-🔥 212
-</div>
-
-</div>
-
-<div class="rarity rare">
-Rare
-</div>
-
-<div class="description">
-Master of flames and lava magic. One of the rarest pixel elves.
-</div>
-
-<div class="nft-footer">
-
-<div class="price">
-8 Pi
-</div>
-
-<div class="owner">
-5 editions
-</div>
-
-</div>
-
-<button class="buy-btn" onclick="buyNFT('Fire Elf',8)">
-Buy with Pi
-</button>
-
-</div>
-
-<!-- NFT -->
-
-<div class="nft-card">
-
-<img
-class="nft-image"
-src="https://i.imgur.com/jx17oHT.png"
->
-
-<div class="nft-top">
-
-<div class="nft-name">
-Shadow Elf
-</div>
-
-<div class="likes">
-⚡ 491
-</div>
-
-</div>
-
-<div class="rarity epic">
-Epic
-</div>
-
-<div class="description">
-A mysterious warrior hidden in darkness and pixel shadows.
-</div>
-
-<div class="nft-footer">
-
-<div class="price">
-15 Pi
-</div>
-
-<div class="owner">
-2 editions
-</div>
-
-</div>
-
-<button class="buy-btn" onclick="buyNFT('Shadow Elf',15)">
-Buy with Pi
-</button>
-
-</div>
-
-<!-- NFT -->
-
-<div class="nft-card">
-
-<img
-class="nft-image"
-src="https://i.imgur.com/y9M4m0W.png"
->
-
-<div class="nft-top">
-
-<div class="nft-name">
-Golden Elf King
-</div>
-
-<div class="likes">
-👑 1000
-</div>
-
-</div>
-
-<div class="rarity legendary">
-Legendary
-</div>
-
-<div class="description">
-The legendary king of all pixel elves. Extremely limited edition.
-</div>
-
-<div class="nft-footer">
-
-<div class="price">
-50 Pi
-</div>
-
-<div class="owner">
-1 edition
-</div>
-
-</div>
-
-<button class="buy-btn" onclick="buyNFT('Golden Elf King',50)">
-Buy with Pi
-</button>
-
-</div>
-
+<div class="nft-grid" id="nftGrid">
 </div>
 
 <!-- ================= FEATURES ================= -->
@@ -909,6 +719,107 @@ console.log(err);
 
 }
 </script>
+<script>
 
+/* ================= FIREBASE ================= */
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyBzBGRgEBFSGLrxxYbRv3v3qUXBNXsDQq8",
+
+  authDomain: "dexpi-2cbae.firebaseapp.com",
+
+  projectId: "dexpi-2cbae",
+
+  storageBucket: "dexpi-2cbae.firebasestorage.app",
+
+  messagingSenderId: "712524945549",
+
+  appId: "1:712524945549:web:8f1d3fd88efec5a4932ac4",
+
+  measurementId: "G-3BX9B89X6H"
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+/* ================= LOAD NFTS ================= */
+
+async function loadNFTs(){
+
+const nftGrid =
+document.getElementById("nftGrid");
+
+nftGrid.innerHTML = "";
+
+const snapshot =
+await db.collection("nfts")
+.orderBy("createdAt","desc")
+.get();
+
+snapshot.forEach((doc)=>{
+
+const nft = doc.data();
+
+nftGrid.innerHTML += `
+
+<div class="nft-card">
+
+<img
+class="nft-image"
+src="${nft.image}"
+>
+
+<div class="nft-top">
+
+<div class="nft-name">
+${nft.name}
+</div>
+
+<div class="likes">
+🔥 New
+</div>
+
+</div>
+
+<div class="rarity ${nft.rarity.toLowerCase()}">
+${nft.rarity}
+</div>
+
+<div class="description">
+${nft.description}
+</div>
+
+<div class="nft-footer">
+
+<div class="price">
+${nft.price} Pi
+</div>
+
+<div class="owner">
+${nft.supply} editions
+</div>
+
+</div>
+
+<button class="buy-btn">
+Buy with Pi
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* ================= START ================= */
+
+loadNFTs();
+
+</script>
 </body>
 </html>
