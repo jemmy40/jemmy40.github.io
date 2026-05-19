@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My NFTs - DexPi NFT</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#ffffff;
+color:#111;
+overflow-x:hidden;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:white;
+border-bottom:1px solid #eee;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-size:32px;
+font-weight:700;
+color:#6f3cff;
+}
+
+.logo span{
+color:#4da6ff;
+}
+
+.nav-links{
+display:flex;
+gap:30px;
+align-items:center;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#111;
+font-weight:500;
+transition:0.2s;
+}
+
+.nav-links a:hover{
+color:#6f3cff;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+padding:80px 20px 50px;
+text-align:center;
+}
+
+.hero h1{
+font-size:64px;
+margin-bottom:20px;
+}
+
+.hero h1 span{
+color:#6f3cff;
+}
+
+.hero p{
+max-width:700px;
+margin:auto;
+font-size:18px;
+line-height:1.8;
+color:#666;
+}
+
+/* ================= PROFILE ================= */
+
+.profile-box{
+max-width:1100px;
+margin:30px auto;
+padding:30px;
+background:#f8f8ff;
+border-radius:30px;
+border:1px solid #eee;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.profile-left{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.avatar{
+width:90px;
+height:90px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.username{
+font-size:28px;
+font-weight:700;
+}
+
+.user-level{
+color:#666;
+margin-top:5px;
+}
+
+.profile-stats{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.stat{
+background:white;
+padding:18px 24px;
+border-radius:20px;
+text-align:center;
+border:1px solid #eee;
+min-width:120px;
+}
+
+.stat h3{
+font-size:26px;
+color:#6f3cff;
+margin-bottom:5px;
+}
+
+.stat p{
+font-size:14px;
+color:#666;
+}
+
+/* ================= NFT GRID ================= */
+
+.section-title{
+text-align:center;
+font-size:42px;
+margin-top:70px;
+margin-bottom:15px;
+}
+
+.section-subtitle{
+text-align:center;
+color:#666;
+margin-bottom:50px;
+font-size:18px;
+}
+
+.nft-grid{
+max-width:1300px;
+margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+}
+
+/* ================= NFT CARD ================= */
+
+.nft-card{
+background:#f8f8ff;
+padding:18px;
+border-radius:28px;
+border:1px solid #eee;
+transition:0.25s;
+box-shadow:0 10px 25px rgba(0,0,0,0.04);
+}
+
+.nft-card:hover{
+transform:translateY(-7px);
+box-shadow:0 20px 40px rgba(111,60,255,0.15);
+}
+
+.nft-image{
+width:100%;
+border-radius:20px;
+margin-bottom:18px;
+}
+
+.nft-name{
+font-size:24px;
+font-weight:700;
+margin-bottom:12px;
+}
+
+.rarity{
+display:inline-block;
+padding:7px 14px;
+border-radius:999px;
+font-size:13px;
+font-weight:600;
+margin-bottom:15px;
+}
+
+.common{
+background:#dfffe2;
+color:#0f9d58;
+}
+
+.rare{
+background:#e5ebff;
+color:#4169e1;
+}
+
+.epic{
+background:#f2e3ff;
+color:#8a2be2;
+}
+
+.legendary{
+background:#fff1d8;
+color:#ff9800;
+}
+
+.description{
+color:#666;
+line-height:1.7;
+margin-bottom:20px;
+font-size:15px;
+}
+
+.nft-footer{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.price{
+font-size:24px;
+font-weight:700;
+}
+
+.date{
+font-size:14px;
+color:#666;
+}
+
+.sell-btn{
+width:100%;
+padding:15px;
+background:#6f3cff;
+border:none;
+border-radius:16px;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.2s;
+box-shadow:0 10px 20px rgba(111,60,255,0.2);
+}
+
+.sell-btn:hover{
+background:#5f30ef;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+margin-top:80px;
+padding:60px 20px;
+background:#f8f8ff;
+text-align:center;
+border-top:1px solid #eee;
+}
+
+.footer-logo{
+font-size:35px;
+font-weight:700;
+color:#6f3cff;
+margin-bottom:20px;
+}
+
+.footer-logo span{
+color:#4da6ff;
+}
+
+.footer p{
+color:#666;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
+
+.navbar{
+padding:20px;
+flex-direction:column;
+gap:20px;
+}
+
+.nav-links{
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+.profile-box{
+justify-content:center;
+text-align:center;
+}
+
+.profile-left{
+flex-direction:column;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<div class="navbar">
+
+<div class="logo">
+DexPi <span>NFT</span>
+</div>
+
+<div class="nav-links">
+<a href="index.html">Home</a>
+<a href="marketplace.html">Marketplace</a>
+<a href="collections.html">Collections</a>
+<a href="mynfts.html">My NFTs</a>
+<a href="upload.html">Upload</a>
+</div>
+
+</div>
+
+<!-- ================= HERO ================= -->
+
+<div class="hero">
+
+<h1>
+My <span>NFTs</span>
+</h1>
+
+<p>
+Manage your NFT collection and explore your digital assets on DexPi NFT.
+</p>
+
+</div>
+
+<!-- ================= PROFILE ================= -->
+
+<div class="profile-box">
+
+<div class="profile-left">
+
+<img
+class="avatar"
+src="https://i.imgur.com/QwhZRyL.png"
+>
+
+<div>
+
+<div class="username">
+@DexPlayer
+</div>
+
+<div class="user-level">
+Pixel NFT Collector
+</div>
+
+</div>
+
+</div>
+
+<div class="profile-stats">
+
+<div class="stat">
+<h3>12</h3>
+<p>NFTs</p>
+</div>
+
+<div class="stat">
+<h3>85 Pi</h3>
+<p>Value</p>
+</div>
+
+<div class="stat">
+<h3>4</h3>
+<p>Collections</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= NFT SECTION ================= -->
+
+<h2 class="section-title">
+Owned NFTs
+</h2>
+
+<p class="section-subtitle">
+Your personal NFT collection
+</p>
+
+<!-- ================= NFT GRID ================= -->
+
+<div class="nft-grid">
+
+<!-- NFT -->
+
+<div class="nft-card">
+
+<img
+class="nft-image"
+src="https://i.imgur.com/2DhmtJ4.png"
+>
+
+<div class="nft-name">
+Green Elf
+</div>
+
+<div class="rarity common">
+Common
+</div>
+
+<div class="description">
+A peaceful forest elf from the ancient pixel kingdom.
+</div>
+
+<div class="nft-footer">
+
+<div class="price">
+3 Pi
+</div>
+
+<div class="date">
+Owned
+</div>
+
+</div>
+
+<button class="sell-btn" onclick="sellNFT('Green Elf')">
+Sell NFT
+</button>
+
+</div>
+
+<!-- NFT -->
+
+<div class="nft-card">
+
+<img
+class="nft-image"
+src="https://i.imgur.com/jx17oHT.png"
+>
+
+<div class="nft-name">
+Shadow Elf
+</div>
+
+<div class="rarity epic">
+Epic
+</div>
+
+<div class="description">
+A mysterious warrior hidden in darkness and pixel shadows.
+</div>
+
+<div class="nft-footer">
+
+<div class="price">
+15 Pi
+</div>
+
+<div class="date">
+Owned
+</div>
+
+</div>
+
+<button class="sell-btn" onclick="sellNFT('Shadow Elf')">
+Sell NFT
+</button>
+
+</div>
+
+<!-- NFT -->
+
+<div class="nft-card">
+
+<img
+class="nft-image"
+src="https://i.imgur.com/y9M4m0W.png"
+>
+
+<div class="nft-name">
+Golden Elf King
+</div>
+
+<div class="rarity legendary">
+Legendary
+</div>
+
+<div class="description">
+The legendary king of all pixel elves. Extremely limited edition.
+</div>
+
+<div class="nft-footer">
+
+<div class="price">
+50 Pi
+</div>
+
+<div class="date">
+Owned
+</div>
+
+</div>
+
+<button class="sell-btn" onclick="sellNFT('Golden Elf King')">
+Sell NFT
+</button>
+
+</div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<div class="footer">
+
+<div class="footer-logo">
+DexPi <span>NFT</span>
+</div>
+
+<p>
+The modern NFT marketplace powered by Pi Network.
+</p>
+
+</div>
+
+<!-- ================= SCRIPT ================= -->
+
+<script>
+
+function sellNFT(name){
+
+alert(
+"You listed " + name + " for sale.\n\n" +
+"This is currently a demo version."
+);
+
+}
+
+</script>
+
+</body>
+
+</html>
